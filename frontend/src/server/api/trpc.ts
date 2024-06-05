@@ -11,6 +11,7 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { db } from "~/server/db";
+import { contract, web3 } from "./web3";
 
 /**
  * 1. CONTEXT
@@ -27,6 +28,8 @@ import { db } from "~/server/db";
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   return {
     db,
+    web3,
+    contract,
     ...opts,
   };
 };

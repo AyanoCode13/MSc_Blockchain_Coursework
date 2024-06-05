@@ -17,7 +17,7 @@ export const postRouter = createTRPCRouter({
       // simulate a slow db call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      return ctx.db.post.create({
+      return ctx.post.create({
         data: {
           name: input.name,
         },
