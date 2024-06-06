@@ -9,20 +9,34 @@ datasource db {
 }
 
 model Property {
-  id          String   @id
-  name        String
-  description String?
-  thumbnail   String
-  gallery     String[]
-  price       Decimal
-  owner       String
-  address     String
-  city        String
-  country     String
-  zipcode     String
-  available   Boolean
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
+  id                String           @id @default(cuid())
+  name              String
+  description       String?
+  property_type     PropertyType
+  accomodation_type AccomodationType
+  thumbnail         String
+  gallery           String[]
+  nr_rooms          Int
+  nr_baths          Int
+  price             Decimal
+  owner             String
+  address           String
+  city              String
+  country           String
+  zipcode           String
+  available         Boolean
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @default(now()) @updatedAt
 
-  @@index([name, description, price, address, city, country, zipcode, available, createdAt, updatedAt])
+  @@index([name, description, property_type, accomodation_type, nr_rooms, nr_baths, price, address, city, country, zipcode, available, createdAt, updatedAt])
+}
+
+enum PropertyType {
+  House
+  Apartment
+}
+
+enum AccomodationType {
+  Buy
+  Rent
 }

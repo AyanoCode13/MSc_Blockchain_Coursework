@@ -49,7 +49,7 @@ export default function NavigationBar({
               </svg>
               <input
                 type="checkbox"
-                value="dark"
+                value="forest"
                 className="theme-controller toggle"
               />
               <svg

@@ -23,10 +23,11 @@ contract RealEstateNFT is
         string memory name,
         string memory symbol
     ) ERC721(name, symbol) Ownable(initialOwner) {}
-    function listProperty(string memory uri) public {
+    function listProperty(string memory uri) public returns (uint256){
         uint256 tokenId = _nextTokenId++;
         _safeMint(msg.sender, tokenId);
         _setTokenURI(tokenId, uri);
+        return tokenId;
     }
     function unlistProperty(uint256 tokenId) public {
         require(
