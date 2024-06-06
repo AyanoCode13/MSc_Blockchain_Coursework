@@ -106,4 +106,38 @@ export const propertyRouter = createTRPCRouter({
       });
     }),
 
-});
+    getByZipCode:publicProcedure
+    .input(z.object({
+      zipcode:z.string(),
+      skip:z.number().optional(),
+      take:z.number(),
+    }))
+    .query(async ({ input, ctx }) => {
+      return await ctx.db.property.findMany({
+        where:{
+          zipcode:input.zipcode
+        },
+        take:input.take,
+        skip:input.skip,
+        select:{
+          id:true,
+          name:true,
+          description:true,
+          price:true,
+          address:true,
+          city:true,
+          country:true,
+          zipcode:true,
+          nr_rooms:true,
+          nr_baths:true,
+          property_type:true,
+          accomodation_type:true,
+          thumbnail:true,
+          gallery:true,
+          available:true,
+          owner:true,
+          
+        }
+      });
+
+})})
