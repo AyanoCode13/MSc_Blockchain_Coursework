@@ -1,6 +1,11 @@
+"use client"
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function Home() {
+  const [zipcode, setZipcode] = React.useState("");
+  const router = useRouter();
+
   return (
     <main
       className="hero min-h-screen"
@@ -15,14 +20,16 @@ export default function Home() {
             <div>
               <div>
                 <input
-                  className="input join-item input-bordered"
+                  className="input join-item input-bordered text-black"
                   placeholder="Enter Zipcode"
+                  required
+                  onChange={(e)=>setZipcode(e.target.value)}
                 />
               </div>
             </div>
 
             <div className="indicator">
-              <button className="btn join-item">Search</button>
+              <button className="btn join-item" onClick={()=>router.push("/home?zipcode="+zipcode)}>Search</button>
             </div>
           </div>
         </div>
