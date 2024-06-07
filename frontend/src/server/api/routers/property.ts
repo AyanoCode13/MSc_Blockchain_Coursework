@@ -125,6 +125,8 @@ export const propertyRouter = createTRPCRouter({
     .query(async ({ input, ctx }) => {
       console.log(input);
       return await ctx.db.property.findMany({
+
+        
         where:{
           address:input.address,
           city:input.city,
@@ -158,8 +160,8 @@ export const propertyRouter = createTRPCRouter({
           gallery:true,
           available:true,
           owner:true,
-          
-        }
+        },
+        
       });
 
 })})

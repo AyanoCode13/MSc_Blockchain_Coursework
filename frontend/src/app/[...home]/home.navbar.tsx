@@ -1,8 +1,38 @@
-export default function NavigationBar({
+"use client";
+import React, { useState } from "react";
+import { useSDK } from "@metamask/sdk-react";
+import { FaWallet } from "react-icons/fa";
+
+export default function HomeNavigationBar({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { sdk, connected, connecting, provider, chainId } = useSDK();
+
+  const [account, setAccount] = useState<string>();
+  const connect = async () => {
+    try {
+      const accounts = await sdk?.connect();
+      console.log(accounts);
+      setAccount(accounts[0]);
+
+      console.log("click");
+      console.log(connected);
+    } catch (err) {
+      console.warn("failed to connect..", err);
+    }
+  };
+
+  const disconnect = async () => {
+    try {
+      await sdk?.terminate();
+      setAccount("");
+    } catch (err) {
+      console.warn("failed to disconnect..", err);
+    }
+  };
+
   return (
     <div className="drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -72,11 +102,45 @@ export default function NavigationBar({
             <ul className="menu menu-horizontal">
               {/* Navbar menu content here */}
               <li>
-                <a>Navbar Item 1</a>
+                {!connected && (
+                  <button className="btn" onClick={connect}>
+                    Connect MetaMask{" "}
+                    <FaWallet className="flex items-center justify-center" />
+                  </button>
+                )}{" "}
               </li>
-              <li>
-                <a>Navbar Item 2</a>
-              </li>
+              {connected && (
+                <div className="dropdown dropdown-end">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="avatar btn btn-circle btn-ghost"
+                  >
+                    <div className="w-10 rounded-full">
+                      <img
+                        alt="Tailwind CSS Navbar component"
+                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                      />
+                    </div>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+                  >
+                    <li>
+                      <a>
+                        {account?.slice(0, 14) + "..." + account?.slice(34, 42)}
+                      </a>
+                    </li>
+
+                    <li>
+                      <button className="btn" onClick={disconnect}>
+                        Disconnect
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </ul>
           </div>
         </div>
@@ -89,13 +153,22 @@ export default function NavigationBar({
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu min-h-full w-80 bg-base-200 p-4">
+        <ul className="menu min-h-full w-80 gap-2 bg-base-200 p-4">
           {/* Sidebar content here */}
           <li>
-            <a>Sidebar Item 1</a>
+            {connected ? (
+              <button className="btn btn-wide" onClick={disconnect}>
+                Disconnect
+              </button>
+            ) : (
+              <button className="btn" onClick={connect}>
+                Connect MetaMask{" "}
+                <FaWallet className="flex items-center justify-center" />
+              </button>
+            )}
           </li>
           <li>
-            <a>Sidebar Item 2</a>
+            <a className="flex items-center justify-center">{account?.slice(0,12)+"..."+account?.slice(30,42)}</a>
           </li>
         </ul>
       </div>

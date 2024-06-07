@@ -4,9 +4,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function PropertyFilters() {
-
   const router = useRouter();
-
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,43 +16,38 @@ export default function PropertyFilters() {
       property_type: e.target.property_type.value,
       nr_rooms: e.target.nr_rooms.value,
       nr_baths: e.target.nr_baths.value,
-      page:1,
-      take:5
+      page: 1,
+      take: 5,
     };
     for (const [key, value] of Object.entries(query)) {
       if (value !== "DEFAULT" && value !== "") {
         link += `${key}=${value}&`;
       }
     }
-    console.log(e.target.min_price.value)
-    console.log(link)
+    console.log(e.target.min_price.value);
+    console.log(link);
     e.currentTarget.reset();
-   router.push(link);
+    router.push(link);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-    <div className="join mt-2 flex flex-wrap w-full items-center justify-center">
-      
+      <div className="join mt-2 flex w-full flex-wrap items-center justify-center">
         <div>
           <div>
             <input
-            name="min_price"
-            
+              name="min_price"
               className="input join-item input-bordered"
               placeholder="Min Price"
-             
             />
           </div>
         </div>
         <div>
           <div>
             <input
-            name="max_price"
-           
+              name="max_price"
               className="input join-item input-bordered"
               placeholder="Max Price"
-
             />
           </div>
         </div>
@@ -63,7 +56,6 @@ export default function PropertyFilters() {
           name="accomodation_type"
           defaultValue={"DEFAULT"}
           className="join-item select select-bordered"
-          
         >
           <option disabled value={"DEFAULT"}>
             Accomodation Type
@@ -76,7 +68,6 @@ export default function PropertyFilters() {
           name="property_type"
           defaultValue={"DEFAULT"}
           className="join-item select select-bordered"
-          
         >
           <option disabled value={"DEFAULT"}>
             Property Type
@@ -88,7 +79,6 @@ export default function PropertyFilters() {
           name="nr_rooms"
           defaultValue={"DEFAULT"}
           className="join-item select select-bordered"
-         
         >
           <option disabled value={"DEFAULT"}>
             Nr. Rooms
@@ -102,7 +92,6 @@ export default function PropertyFilters() {
           name="nr_baths"
           defaultValue={"DEFAULT"}
           className="join-item select select-bordered"
-         
         >
           <option disabled value={"DEFAULT"}>
             Nr. Bathrooms
@@ -116,7 +105,6 @@ export default function PropertyFilters() {
           name="results_per_page"
           defaultValue={"DEFAULT"}
           className="join-item select select-bordered"
-          
         >
           <option disabled value={"DEFAULT"}>
             Results Per Page
@@ -126,16 +114,11 @@ export default function PropertyFilters() {
           <option>15</option>
         </select>
         <div className="indicator">
-          <button
-            className="btn join-item"
-            type="submit"
-            
-          >
+          <button className="btn join-item" type="submit">
             Search
           </button>
         </div>
-    </div>
+      </div>
     </form>
-
   );
 }

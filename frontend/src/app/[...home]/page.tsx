@@ -48,12 +48,14 @@ export default async function Home({
     max_price:searchParams.max_price ? Number(searchParams.max_price):undefined,
     
   });
+  console.log(properties);
+  console.log(properties.length);
 
   return (
     <>
-    <PropertyFilters />
+      <PropertyFilters />
       <main className="my-5 flex min-h-screen flex-col items-center justify-center gap-3">
-        <TestButton />
+        
         {properties.map((property, index) => (
           <PropertyCard
             key={property.id}
@@ -63,10 +65,10 @@ export default async function Home({
         ))}
       </main>
       <div className="join min-w-full grid grid-cols-2 bottom-0 fixed bg-white justify-center items-center">
-        <Link href={prevLink} className="btn btn-outline join-item w-full">
+       <Link href={prevLink} className="btn btn-outline join-item w-full">
           Previous Page
         </Link>
-        <Link href={nextLink} className="btn btn-outline join-item w-full">
+       <Link href={nextLink} className="btn btn-outline join-item w-full">
           Next Page
         </Link>
       </div>
