@@ -106,16 +106,38 @@ export const propertyRouter = createTRPCRouter({
       });
     }),
 
-    getByZipCode:publicProcedure
+    getByFilter:publicProcedure
     .input(z.object({
-      zipcode:z.string(),
-      skip:z.number().optional(),
-      take:z.number(),
+      nr_rooms:z.number().optional(),
+      nr_baths:z.number().optional(),
+      min_price:z.number().optional(),
+      max_price:z.number().optional(),
+      property_type:z.enum(["House", "Apartment"]).optional(),
+      accomodation_type:z.enum(["Buy", "Rent"]).optional(),
+      address:z.string().optional(),
+      zipcode:z.string().optional(),
+      city:z.string().optional(),
+      country:z.string().optional(),
+      skip:z.number().optional().default(0),
+      take:z.number().optional().default(3),
+
     }))
     .query(async ({ input, ctx }) => {
+      console.log(input);
       return await ctx.db.property.findMany({
         where:{
-          zipcode:input.zipcode
+          address:input.address,
+          city:input.city,
+          country:input.country,
+          zipcode:input.zipcode,
+          accomodation_type:input.accomodation_type,
+          property_type:input.property_type,
+          nr_rooms:input.nr_rooms,
+          nr_baths:input.nr_baths,
+          price:{
+            gte:input.min_price,
+            lte:input.max_price
+          }
         },
         take:input.take,
         skip:input.skip,

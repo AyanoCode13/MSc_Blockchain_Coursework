@@ -47,6 +47,7 @@ export default function PropertyCard({
                 width={200}
                 height={200}
                 alt="image"
+                priority
               />
               <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
                 <a

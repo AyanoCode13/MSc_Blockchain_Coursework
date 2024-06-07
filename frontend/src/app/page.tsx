@@ -1,4 +1,5 @@
 "use client"
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -29,7 +30,7 @@ export default function Home() {
             </div>
 
             <div className="indicator">
-              <button className="btn join-item" onClick={()=>router.push("/home?zipcode="+zipcode)}>Search</button>
+              <Link href={"/home?zipcode="+zipcode+"&page=1&take=3"} className="btn join-item">Search</Link>
             </div>
           </div>
         </div>
