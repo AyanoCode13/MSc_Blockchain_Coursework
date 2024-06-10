@@ -119,7 +119,7 @@ export const propertyRouter = createTRPCRouter({
       city:z.string().optional(),
       country:z.string().optional(),
       skip:z.number().optional().default(0),
-      take:z.number().optional().default(3),
+      take:z.number().optional().default(5),
 
     }))
     .query(async ({ input, ctx }) => {

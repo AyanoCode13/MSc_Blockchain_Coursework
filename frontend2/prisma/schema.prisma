@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Property {
+  id                String           @id
+  name              String
+  description       String?
+  thumbnail         String
+  gallery           String[]
+  price             Decimal
+  owner             String
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @default(now())
+  available         Boolean
+  address           String
+  city              String
+  country           String
+  zipcode           String
+  accomodation_type AccomodationType
+  nr_baths          Int
+  nr_rooms          Int
+  property_type     PropertyType
+
+  @@index([name, description, property_type, accomodation_type, nr_rooms, nr_baths, price, address, city, country, zipcode, available, createdAt, updatedAt])
+}
+
+enum AccomodationType {
+  Buy
+  Rent
+}
+
+enum PropertyType {
+  House
+  Apartment
+}

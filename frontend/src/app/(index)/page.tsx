@@ -2,10 +2,12 @@
 import Link from "next/link";
 import React from "react";
 import IndexNavigationBar from "./index.navbar";
+import { useRouter } from "next/navigation";
 
 
 export default function Home() {
   const [zipcode, setZipcode] = React.useState("");
+  const router = useRouter();
 
 
   return (
@@ -27,7 +29,7 @@ export default function Home() {
                     className="input join-item input-bordered text-black"
                     placeholder="Enter Zipcode"
                     required
-                    onChange={(e) => setZipcode(e.target.value)}
+                   
                   />
                 </div>
               </div>
@@ -36,6 +38,7 @@ export default function Home() {
                 <Link
                   href={"/home?zipcode=" + zipcode + "&page=1&take=3"}
                   className="btn join-item"
+                
                 >
                   Search
                 </Link>
